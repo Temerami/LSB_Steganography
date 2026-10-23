@@ -34,12 +34,22 @@ for i in range(x):
              tmp += B[-1]
              k += 1
 
-for i in range(text_len // 8): #это работает только для символов 1б
-    ans.append(tmp[:8])
-    tmp = tmp[8:]
+
+while len(tmp) > 0:
+    if tmp[0] == '0':
+        ans.append(tmp[:8])
+        tmp = tmp[8:]
+        continue
+    if tmp[0] == '1':
+        ans.append(tmp[:16])
+        tmp = tmp[16:]
+
 
 for i in ans:
+    i = '0' + i[1:]
     ans_2 += chr(int(i, 2))
+
+
 
 print(ans_2)
 

@@ -1,3 +1,4 @@
+from PIL import Image
 def f(i):
     size = len(i.encode('utf-8')) #сколько байт занимает 1 символ
     tmp = bin(ord(i))[2:]
@@ -15,8 +16,8 @@ def g(i):
 
 
 
-from PIL import Image
-a = Image.open("Mona_Lisa.jpg").convert("RGB")
+
+a = Image.open("data/Mona_Lisa.jpg").convert("RGB")
 
 b = a.size #массив из двух чисел
 
@@ -71,4 +72,3 @@ for i in range(x):
 print(text_len)
 a.save("Mona_Lisa_shifr.png")#сохраняй в png, чтобы избежать сжатия, а следовательно неправильной интерпретации
 a.show()
-

@@ -6,7 +6,7 @@ def g(i):
 
 from PIL import Image
 
-a = Image.open("Mona_Lisa_shifr.png").convert('RGB')
+a = Image.open("data/Mona_Lisa_shifr.png").convert('RGB')
 text_len = int(input())
 ans = [] #сюда помещаем каждый символ в 2сс
 ans_2 = '' #переводятся в привычные символы

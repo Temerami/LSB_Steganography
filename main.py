@@ -2,6 +2,9 @@ from PIL import Image
 
 
 def choose_mode():
+    '''
+    Эта функция возвращает переменную mode(режим работы)
+    '''
     mode = ''
     while mode != '1' and mode != '2':
         mode = input('\n'
@@ -12,6 +15,10 @@ def choose_mode():
 
 
 def choose_image(mode):
+    '''
+    Эта функция принимает переменную mode(режим работы), а возвращает
+    переменную im, хранящую информацию об загруженном изображении
+    '''
     if mode == '1':
         im = Image.open('data/Mona_Lisa.jpg').convert("RGB")
     else:
@@ -28,11 +35,13 @@ def choose_image(mode):
     return im
 
 
-#принимает символ, возвращает его в двоичном виде(строка) с незначащими нулями
 def f(i):
+    '''
+    Эта функция принимает символ, возвращает его в двоичном виде(строка) со значащими нулями
+    '''
     size = len(i.encode('utf-8')) #сколько байт занимает 1 символ
     tmp = bin(ord(i))[2:]
-    tmp = '0'*(8*size-len(tmp)) + tmp #добавляем незначащие нули, у каждого символа своя длинна в 2сс
+    tmp = '0'*(8*size-len(tmp)) + tmp #добавляем значащие нули, у каждого символа своя длинна в 2сс
     #если в начале 0, то символ занимает 1 байт, если 1, то 2 байта
     if size == 2:
         tmp = '1' + tmp[1:]
@@ -41,12 +50,18 @@ def f(i):
 
 #то же самое, только здесь на вход идут числа
 def g(i):
+    '''
+    Эта функция принимает число, возвращает его в двоичном виде(строка) со значащими нулями
+    '''
     tmp = bin(i)[2:]
     tmp = '0'*(8-len(tmp)) + tmp
     return tmp
 
 
 def h(k, text_2, T):
+    '''
+    Эта вспомогательная ф-ция для записывания битов в цветовые каналы
+    '''
     text_len = len(text_2)
     if k < text_len:
         if T[-1] != text_2[k]:
@@ -59,6 +74,9 @@ def h(k, text_2, T):
 
 
 def take_message():
+    '''
+    Эта функция считывает сообщение, введённое пользователем, а также возвращает его в двоичном виде в виде строки
+    '''
     message = input('\n'
                     'Input your message: ')
     fl = 1
@@ -78,7 +96,13 @@ def take_message():
     return text_2
 
 
-def encoder(im, text_2, arr, mode):
+def encoder(im, text_2, mode):
+    '''
+    Эта функция принимает картинку, закодированное сообщение в двоичном виде, и режим работы,
+    при выполнении кодирует сообщение в изображение, ничего не возвращает, но выводит ключ
+    для декодирования
+    '''
+    arr = im.load()
     x, y = im.size
     k = 0  # идёт по строке из 0 и 1
     for i in range(x):
@@ -105,6 +129,10 @@ def encoder(im, text_2, arr, mode):
 
 
 def decoder(mode):
+    '''
+    Эта функция принимает режим работы(mode), при вызове декобирует сообщение
+    в изображении, ничего не возвращает
+    '''
     text_len = int(input('\n'
                          'Enter decode number: '))
     if mode == '1':
@@ -149,13 +177,14 @@ def decoder(mode):
     print("Message in image:", ans_2)
 
 
+#главная часть, вызов всех ф-ций
 mode = choose_mode()
 im = choose_image(mode)
 
 text_2 = take_message()
 arr = im.load()
 
-encoder(im, text_2, arr, mode)
+encoder(im, text_2, mode)
 im.show()
 
 decoder(mode)
